@@ -1,9 +1,31 @@
 import { useRef, useState, useEffect } from "react"
-import song from "../../audio/Апология - Мосты.mp3";
+
+import './AudioPlayer.css'
+
+
+import song from "../../audio/Апология - Мосты.mp3"
+import songTwo from "../../audio/найтивыход - был в сети 15 минут назад.mp3"
+import pictureone from "../../picture/fonpictureone.jpeg"
+import picturetwo from "../../picture/picturetwo.jpeg"
+const objMus = [
+  {
+    name: 'Мосты',
+    nameArtist: 'Апология',
+    picture: pictureone,
+    songTrack: song
+  },
+  {
+    name: 'был в сети 15 минут назад',
+    nameArtist: 'найтивыход',
+    picture: picturetwo,
+    songTrack: songTwo
+  },
+]
 
 
 export const AudioPlayer = () => {
   const audioRef = useRef(null)
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [currentTime, setCurrentTime] = useState(0);
@@ -58,9 +80,34 @@ export const AudioPlayer = () => {
     audioRef.current.currentTime = percentage * audioRef.current.duration;
   };
 
+  //кнопки переключения песен
+  const nextTrack = () => {
+    setCurrentTrackIndex(prev =>
+      prev === objMus.length - 1 ? 0 : prev + 1
+    )
+  }
+  const prevTrack = () => {
+    setCurrentTrackIndex(prev =>
+      prev === 0 ? objMus.length - 1 : prev - 1
+    )
+  }
+// обработка продолжения проигрывания если переключить трек
+  useEffect(() => {
+  if (!audioRef.current) return;
+
+  if (isPlaying) {
+    audioRef.current.play();
+  } else {
+    audioRef.current.pause();
+  }
+}, [isPlaying, currentTrackIndex]);
+
+
+
+
   return (
     <div style={{ width: "320px", fontFamily: "sans-serif" }}>
-      <audio ref={audioRef} src={song} />
+      <audio ref={audioRef} src={objMus[currentTrackIndex].songTrack} />
       <button onClick={togglePlay} style={{ marginBottom: "10px" }}>
         {isPlaying ? "Pause" : "Play"}
       </button>
@@ -70,6 +117,11 @@ export const AudioPlayer = () => {
         <span>{formatTime(currentTime)}</span>
         <span>{formatTime(duration)}</span>
       </div>
+
+      <button
+        className="btn__next"
+        onClick={prevTrack}
+      >назад</button>
 
       {/* Прогресс-бар */}
       <div
@@ -92,6 +144,12 @@ export const AudioPlayer = () => {
           }}
         />
       </div>
+
+      <button
+        className="btn__next"
+        onClick={nextTrack}
+      >вперед</button>
+
     </div>
   )
 }
