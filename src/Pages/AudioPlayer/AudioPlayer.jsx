@@ -2,6 +2,11 @@ import { useRef, useState, useEffect } from "react"
 
 import './AudioPlayer.css'
 
+import { PlayBtn } from "./Components/Controllers/controllers"
+import { PauseBtn } from "./Components/Controllers/controllers"
+import { NextBtn } from "./Components/Controllers/controllers"
+import { PrevBtn } from "./Components/Controllers/controllers"
+
 
 import song from "../../audio/Апология - Мосты.mp3"
 import songTwo from "../../audio/найтивыход - был в сети 15 минут назад.mp3"
@@ -106,10 +111,10 @@ export const AudioPlayer = () => {
 
 
   return (
-    <div style={{ width: "320px", fontFamily: "sans-serif" }}>
+    <div className="audio__box-player">
       <audio ref={audioRef} src={objMus[currentTrackIndex].songTrack} />
-      <button onClick={togglePlay} style={{ marginBottom: "10px" }}>
-        {isPlaying ? "Pause" : "Play"}
+      <button onClick={togglePlay} >
+        {isPlaying ? <PauseBtn /> : <PlayBtn />}
       </button>
 
       {/* Время */}
@@ -121,7 +126,7 @@ export const AudioPlayer = () => {
       <button
         className="btn__next"
         onClick={prevTrack}
-      >назад</button>
+      ><PrevBtn /></button>
 
       {/* Прогресс-бар */}
       <div
@@ -148,7 +153,7 @@ export const AudioPlayer = () => {
       <button
         className="btn__next"
         onClick={nextTrack}
-      >вперед</button>
+      ><NextBtn /></button>
 
     </div>
   )
