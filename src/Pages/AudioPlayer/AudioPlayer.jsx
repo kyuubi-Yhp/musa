@@ -2,12 +2,6 @@ import { useRef, useState, useEffect } from "react"
 
 import './AudioPlayer.css'
 
-import { PlayBtn } from "./Components/Controllers/controllers"
-import { PauseBtn } from "./Components/Controllers/controllers"
-import { NextBtn } from "./Components/Controllers/controllers"
-import { PrevBtn } from "./Components/Controllers/controllers"
-
-
 import song from "../../audio/Апология - Мосты.mp3"
 import songTwo from "../../audio/найтивыход - был в сети 15 минут назад.mp3"
 import pictureone from "../../picture/fonpictureone.jpeg"
@@ -96,65 +90,51 @@ export const AudioPlayer = () => {
       prev === 0 ? objMus.length - 1 : prev - 1
     )
   }
-// обработка продолжения проигрывания если переключить трек
+  // обработка продолжения проигрывания если переключить трек
   useEffect(() => {
-  if (!audioRef.current) return;
+    if (!audioRef.current) return;
 
-  if (isPlaying) {
-    audioRef.current.play();
-  } else {
-    audioRef.current.pause();
-  }
-}, [isPlaying, currentTrackIndex]);
-
-
+    if (isPlaying) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+  }, [isPlaying, currentTrackIndex]);
 
 
   return (
     <div className="audio__box-player">
       <audio ref={audioRef} src={objMus[currentTrackIndex].songTrack} />
-      <button onClick={togglePlay} >
-        {isPlaying ? <PauseBtn /> : <PlayBtn />}
-      </button>
+      <img src={objMus[currentTrackIndex].picture} alt="cover" className="cover__picture" />
+      <h3 className="song__name">{objMus[currentTrackIndex].name}</h3>
+      <p className="artist__name">{objMus[currentTrackIndex].nameArtist}</p>
 
-      {/* Время */}
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
+      <div className="controls">
+        <button
+          className="icon__btn"
+          onClick={prevTrack}
+        >⏮</button>
+
+        <button
+          className={`play__btn ${isPlaying ? "play__btn--pause" : ""}`}
+          onClick={togglePlay} >
+          {isPlaying ? "⏸" : "▶"}
+        </button>
+
+        <button
+          className="icon__btn"
+          onClick={nextTrack}
+        >⏭</button>
+      </div>
+
+      <div className="time">
         <span>{formatTime(currentTime)}</span>
         <span>{formatTime(duration)}</span>
       </div>
 
-      <button
-        className="btn__next"
-        onClick={prevTrack}
-      ><PrevBtn /></button>
-
-      {/* Прогресс-бар */}
-      <div
-        style={{
-          width: "100%",
-          height: "10px",
-          background: "#eee",
-          cursor: "pointer",
-          borderRadius: "5px",
-          overflow: "hidden"
-        }}
-        onClick={handleProgressClick}
-      >
-        <div
-          style={{
-            width: `${progress}%`,
-            height: "100%",
-            background: "green",
-            transition: "width 0.1s linear"
-          }}
-        />
+      <div className="progress" onClick={handleProgressClick}>
+        <div className="progress-bar" style={{ width: `${progress}%` }} />
       </div>
-
-      <button
-        className="btn__next"
-        onClick={nextTrack}
-      ><NextBtn /></button>
-
     </div>
   )
 }
