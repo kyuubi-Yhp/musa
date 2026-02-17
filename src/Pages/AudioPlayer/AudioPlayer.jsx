@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from "react"
-
 import './AudioPlayer.css'
 
 import song from "../../audio/Апология - Мосты.mp3"
@@ -26,6 +25,7 @@ export const AudioPlayer = () => {
   const audioRef = useRef(null)
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
+
   const [progress, setProgress] = useState(0)
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -104,7 +104,7 @@ export const AudioPlayer = () => {
 
   return (
     <div className="audio__box-player">
-      <audio ref={audioRef} src={objMus[currentTrackIndex].songTrack} />
+      <audio ref={audioRef} src={objMus[currentTrackIndex].songTrack} onEnded={nextTrack} />
       <img src={objMus[currentTrackIndex].picture} alt="cover" className="cover__picture" />
       <h3 className="song__name">{objMus[currentTrackIndex].name}</h3>
       <p className="artist__name">{objMus[currentTrackIndex].nameArtist}</p>
