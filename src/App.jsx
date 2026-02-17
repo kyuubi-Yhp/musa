@@ -1,4 +1,5 @@
 import { AudioPlayer } from './Pages/AudioPlayer/AudioPlayer'
+import { LoaderAudio } from './Pages/LoaderAudio/LoaderAudio'
 
 import { useState } from 'react'
 
@@ -10,6 +11,7 @@ function App() {
   return (
     <div>
       <AudioPlayer />
+      <LoaderAudio /> 
     </div>
   )
 }

@@ -1,0 +1,10 @@
+.Loader__audio-box {
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  background: #181818;
+  height: 100px;
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+}
