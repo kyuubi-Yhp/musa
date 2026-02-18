@@ -1,10 +1,63 @@
 .Loader__audio-box {
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  /* промежутки между элементами */
   width: 340px;
   background: #181818;
-  height: 100px;
   color: white;
   padding: 20px;
   border-radius: 20px;
+}
+
+/* Стили для input */
+.Loader__audio-box input {
+  color: white;
+  font-size: 14px;
+  padding: 6px;
+  background: #202020;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #333;
+  transition: all 0.2s ease;
+}
+
+.Loader__audio-box input::-webkit-file-upload-button {
+  background: #202020;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.Loader__audio-box input:focus {
+  border-color: #1db954;
+  box-shadow: 0 0 5px #1db954;
+}
+
+/* Стили для кнопки загрузки */
+.btn__loader {
+  height: 35px;
+  background-color: #1db954;
+  border-radius: 10px;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn__loader:hover {
+  background-color: #1ed760;
+}
+
+.btn__loader:active {
+  background-color: #016825;
+  transform: scale(0.97);
+}
+
+
+/* Дополнительно: placeholder стиль */
+.Loader__audio-box input::placeholder {
+  color: #aaa;
+  opacity: 1;
 }

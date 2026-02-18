@@ -68,7 +68,7 @@ export const LoaderAudio = ({ addTrack }) => {
         onChange={handleFileChange}
       />
 
-      <button
+      <button className='btn__loader'
         onClick={handelLoaderTreck}
       >
         загрузить
