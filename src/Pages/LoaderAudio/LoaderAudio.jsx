@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import './LoaderAudio.css'
 
-export const LoaderAudio = () => {
+export const LoaderAudio = ({ addTrack }) => {
 
   const [objTreck, setObjTreck] = useState({
     name: '',
@@ -17,19 +17,24 @@ export const LoaderAudio = () => {
     setObjTreck(prev => ({
       ...prev, [name]: value
     }))
+    console.log(objTreck)
   }
 
   const handleFileChange = (e) => {
     const { name, files } = e.target
+    const file = files[0]
+
+    const fileURL = URL.createObjectURL(file)
 
     setObjTreck(prev => ({
       ...prev,
-      [name]: files[0]
+      [name]: fileURL
     }))
+    console.log(objTreck)
   }
 
   const handelLoaderTreck = () => {
-    
+    addTrack(objTreck)
   }
 
 
@@ -64,7 +69,7 @@ export const LoaderAudio = () => {
       />
 
       <button
-      onClick={handelLoaderTreck}
+        onClick={handelLoaderTreck}
       >
         загрузить
       </button>

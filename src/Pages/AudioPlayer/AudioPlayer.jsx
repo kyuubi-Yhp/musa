@@ -3,27 +3,11 @@ import { useRef, useState, useEffect } from "react"
 import { FaVolumeUp, FaVolumeMute, FaRedo } from "react-icons/fa";
 import './AudioPlayer.css'
 
-import song from "../../audio/Апология - Мосты.mp3"
-import songTwo from "../../audio/найтивыход - был в сети 15 минут назад.mp3"
-import pictureone from "../../picture/fonpictureone.jpeg"
-import picturetwo from "../../picture/picturetwo.jpeg"
-const objMus = [
-  {
-    name: 'Мосты',
-    nameArtist: 'Апология',
-    picture: pictureone,
-    songTrack: song
-  },
-  {
-    name: 'был в сети 15 минут назад',
-    nameArtist: 'найтивыход',
-    picture: picturetwo,
-    songTrack: songTwo
-  },
-]
 
 
-export const AudioPlayer = () => {
+
+
+export const AudioPlayer = ({ tracks }) => {
   const audioRef = useRef(null)
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -88,12 +72,12 @@ export const AudioPlayer = () => {
   //кнопки переключения песен
   const nextTrack = () => {
     setCurrentTrackIndex(prev =>
-      prev === objMus.length - 1 ? 0 : prev + 1
+      prev === tracks.length - 1 ? 0 : prev + 1
     )
   }
   const prevTrack = () => {
     setCurrentTrackIndex(prev =>
-      prev === 0 ? objMus.length - 1 : prev - 1
+      prev === 0 ? tracks.length - 1 : prev - 1
     )
   }
   // обработка продолжения проигрывания если переключить трек
@@ -111,7 +95,6 @@ export const AudioPlayer = () => {
   useEffect(() => {
     if (!audioRef.current) return;
     audioRef.current.volume = volume;
-    console.log(volume)
   }, [volume]);
   //aункция зацикливания трека
   useEffect(() => {
@@ -123,10 +106,10 @@ export const AudioPlayer = () => {
 
   return (
     <div className="audio__box-player">
-      <audio ref={audioRef} src={objMus[currentTrackIndex].songTrack} onEnded={nextTrack} />
-      <img src={objMus[currentTrackIndex].picture} alt="cover" className="cover__picture" />
-      <h3 className="song__name">{objMus[currentTrackIndex].name}</h3>
-      <p className="artist__name">{objMus[currentTrackIndex].nameArtist}</p>
+      <audio ref={audioRef} src={tracks[currentTrackIndex].songTrack} onEnded={nextTrack} />
+      <img src={tracks[currentTrackIndex].picture} alt="cover" className="cover__picture" />
+      <h3 className="song__name">{tracks[currentTrackIndex].name}</h3>
+      <p className="artist__name">{tracks[currentTrackIndex].nameArtist}</p>
 
       <div className="controls">
         <button
@@ -162,7 +145,7 @@ export const AudioPlayer = () => {
           type="range"
           min='0'
           max='1'
-          step='0.01'
+          step='0.001'
           value={volume}
           onChange={(e) => setVolume(e.target.value)}
           style={{background: `linear-gradient(to right, #0ec84fc6 ${volume * 100}%, #444 ${volume * 100}%)`}}
@@ -171,7 +154,6 @@ export const AudioPlayer = () => {
           onClick={() => setIsLoop(prev => !prev)}
           style={{ color: isLoop ? "#0ec84fc6" : "white", cursor: "pointer" }}
         />
-
       </div>
     </div>
   )
