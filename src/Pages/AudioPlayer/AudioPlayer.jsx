@@ -1,4 +1,6 @@
 import { useRef, useState, useEffect } from "react"
+
+import { FaVolumeUp, FaVolumeMute, FaRedo } from "react-icons/fa";
 import './AudioPlayer.css'
 
 import song from "../../audio/Апология - Мосты.mp3"
@@ -29,6 +31,10 @@ export const AudioPlayer = () => {
   const [progress, setProgress] = useState(0)
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const [isLoop, setIsLoop] = useState(false);
+
+
 
   //функция отслеживания и изсенения состояния и самого обьекта плей пауза
   const togglePlay = () => {
@@ -101,6 +107,19 @@ export const AudioPlayer = () => {
     }
   }, [isPlaying, currentTrackIndex]);
 
+  //функция отслеживания громкости
+  useEffect(() => {
+    if (!audioRef.current) return;
+    audioRef.current.volume = volume;
+    console.log(volume)
+  }, [volume]);
+  //aункция зацикливания трека
+  useEffect(() => {
+    if (!audioRef.current) return;
+    audioRef.current.loop = isLoop;
+  }, [isLoop]);
+
+
 
   return (
     <div className="audio__box-player">
@@ -134,6 +153,25 @@ export const AudioPlayer = () => {
 
       <div className="progress" onClick={handleProgressClick}>
         <div className="progress-bar" style={{ width: `${progress}%` }} />
+      </div>
+
+      <div className="volume__box">
+        <FaVolumeUp />
+        <input
+          className="volume__slider"
+          type="range"
+          min='0'
+          max='1'
+          step='0.01'
+          value={volume}
+          onChange={(e) => setVolume(e.target.value)}
+          style={{background: `linear-gradient(to right, #0ec84fc6 ${volume * 100}%, #444 ${volume * 100}%)`}}
+        />
+        <FaRedo
+          onClick={() => setIsLoop(prev => !prev)}
+          style={{ color: isLoop ? "#0ec84fc6" : "white", cursor: "pointer" }}
+        />
+
       </div>
     </div>
   )
