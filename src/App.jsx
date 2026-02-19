@@ -1,7 +1,10 @@
-import { AudioPlayer } from './Pages/AudioPlayer/AudioPlayer'
-import { LoaderAudio } from './Pages/LoaderAudio/LoaderAudio'
+import { Routes, Route, BrowserRouter } from "react-router-dom"
 
 import { useState } from 'react'
+
+import { Layout } from "./components/Layout/Layout"
+import { PlayerPage } from "./Pages/PlayerPage"
+import { UploadPage } from "./Pages/UploadPage"
 
 import song from "./audio/Апология - Мосты.mp3"
 import songTwo from "./audio/найтивыход - был в сети 15 минут назад.mp3"
@@ -9,6 +12,7 @@ import pictureone from "./picture/fonpictureone.jpeg"
 import picturetwo from "./picture/picturetwo.jpeg"
 
 import './App.css'
+
 
 function App() {
 
@@ -37,8 +41,15 @@ function App() {
 
   return (
     <div>
-      <AudioPlayer tracks={tracks} />
-      <LoaderAudio addTrack={addTrack} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<PlayerPage tracks={tracks} />} />
+            <Route path="upload" element={<UploadPage addTrack={addTrack} />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+
     </div>
   )
 }

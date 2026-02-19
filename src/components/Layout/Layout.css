@@ -1,0 +1,35 @@
+.layout {
+  min-height: 100vh;
+  background: #121212;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #181818;
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.nav a:hover {
+  color: #1db954;
+}
+
+.content {
+  flex: 1;
+  padding: 40px;
+}
