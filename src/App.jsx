@@ -48,7 +48,7 @@ function App() {
             <Route path="upload" element={<UploadPage addTrack={addTrack} />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter>x
 
     </div>
   )
