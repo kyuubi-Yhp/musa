@@ -6,9 +6,10 @@ export const Layout = () => {
     <div className="layout">
       <header className="header">
         <h2>Musa</h2>
-        <nav>
+        <nav className="nav">
           <Link to='/'>player</Link>
           <Link to='/upload'>Upload</Link>
+          <Link to='/signin'>SignIn</Link>
         </nav>
       </header>
 

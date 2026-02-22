@@ -37,6 +37,7 @@
 /* Стили для кнопки загрузки */
 .btn__loader {
   height: 35px;
+  font-size: 14px;
   background-color: #1db954;
   border-radius: 10px;
   color: #000;
