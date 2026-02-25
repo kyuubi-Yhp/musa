@@ -1,6 +1,6 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom"
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Layout } from "./components/Layout/Layout"
 import { PlayerPage } from "./Pages/PlayerPage"
@@ -17,7 +17,7 @@ import './App.css'
 
 function App() {
 
-//моковые треки
+  //моковые треки
   const [tracks, setTracks] = useState([
     {
       name: 'Мосты',
@@ -39,16 +39,28 @@ function App() {
   }
 
   // моковый пользователь 
-  const [person, setPerson] = useState([])
+  const [person, setPerson] = useState({})
+
+
+  const [personEP, setPersonEP] = useState([
+    {
+      email: 'south01village@gmail.com',
+      pass: '123rrr'
+    },
+    {
+      email: 'qwe123@gmail.com',
+      pass: '123eee'
+    }
+  ])
 
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Layout  person={person}/>}>
             <Route index element={<PlayerPage tracks={tracks} />} />
             <Route path="upload" element={<UploadPage addTrack={addTrack} />} />
-            <Route path="signin" element={<SignIn />} />
+            <Route path="signin" element={<SignIn personEP={personEP} setPerson={setPerson} />} />
           </Route>
         </Routes>
       </BrowserRouter>
