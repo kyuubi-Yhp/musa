@@ -6,6 +6,7 @@ import { Layout } from "./components/Layout/Layout"
 import { PlayerPage } from "./Pages/PlayerPage"
 import { UploadPage } from "./Pages/UploadPage"
 import { SignIn } from "./components/SignIn/SignIn"
+import { SignUp } from "./components/SignUp/SignUp"
 
 import song from "./audio/Апология - Мосты.mp3"
 import songTwo from "./audio/найтивыход - был в сети 15 минут назад.mp3"
@@ -41,7 +42,6 @@ function App() {
   // моковый пользователь 
   const [person, setPerson] = useState({})
 
-
   const [personEP, setPersonEP] = useState([
     {
       email: 'south01village@gmail.com',
@@ -53,14 +53,28 @@ function App() {
     }
   ])
 
+  const handleSignUp = (newUser) => {
+    const isPersonTru = personEP.some(user => user.email === newUser.email)
+
+    if (isPersonTru) {
+      alert("Пользователь уже существует")
+      return
+    }
+
+    setPersonEP(prev => [...prev, newUser])
+    setPerson(newUser)
+  }
+
+
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout  person={person}/>}>
+          <Route path="/" element={<Layout person={person} />}>
             <Route index element={<PlayerPage tracks={tracks} />} />
             <Route path="upload" element={<UploadPage addTrack={addTrack} />} />
             <Route path="signin" element={<SignIn personEP={personEP} setPerson={setPerson} />} />
+            <Route path="signup" element={<SignUp personEP={personEP} handleSignUp={handleSignUp} />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -11,6 +11,7 @@ export const Layout = ({ person }) => {
           <Link to='/'>player</Link>
           <Link to='/upload'>Upload</Link>
           <Link to='/signin'>SignIn</Link>
+          <Link to='/signup'>SignUp</Link>
         </nav>
       </header>
 
